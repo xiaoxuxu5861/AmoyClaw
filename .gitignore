@@ -1,0 +1,49 @@
+# Python cache / build output
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Virtual environments / local dependencies
+.venv/
+venv/
+env/
+ENV/
+Lib/
+Scripts/
+site-packages/
+node_modules/
+
+# Local secrets and machine config
+.env
+.env.*
+!.env.example
+
+# Local runtime data
+data/amoyclaw.db
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+data/outputs/*
+!data/outputs/.gitkeep
+*.log
+
+# Project-private planning and report documents
+AmoyClaw开发计划.txt
+AmoyClaw实验报告初稿.docx
+37220232203875_徐靖翔.docx
+*.docx
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
