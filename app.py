@@ -7,7 +7,15 @@ from pathlib import Path
 import streamlit as st
 
 from agent.controller import DemoAgentController
-from config import COURSES_DIR, DB_PATH, OPENAI_API_KEY, OUTPUTS_DIR, ensure_dirs
+from config import (
+    COURSES_DIR,
+    DB_PATH,
+    MODEL_DISPLAY_NAME,
+    MODEL_STATUS_LABEL,
+    OPENAI_BASE_URL,
+    OUTPUTS_DIR,
+    ensure_dirs,
+)
 from memory.memory_manager import MemoryManager
 from tools.assignment_tools import add_assignment
 from tools.campus_tools import add_campus_place, decide_food
@@ -328,7 +336,7 @@ def render_app_header(memory: MemoryManager) -> None:
     career_count = len(memory.list_career_opportunities())
     place_count = len(memory.list_campus_places(category="food"))
     output_count = len([path for path in OUTPUTS_DIR.glob("*") if path.is_file() and path.name != ".gitkeep"])
-    model_state = "Function Calling Ready" if OPENAI_API_KEY else "Offline Demo"
+    model_state = MODEL_STATUS_LABEL
 
     st.markdown(
         """
@@ -341,7 +349,7 @@ def render_app_header(memory: MemoryManager) -> None:
         unsafe_allow_html=True,
     )
     cells = [
-        ("MODE", model_state, "SQLite memory + tools"),
+        ("MODEL", model_state, MODEL_DISPLAY_NAME),
         ("DDL", str(len(ddl_items)), f"{urgent_count} high urgency"),
         ("TASKS", str(todo_count), "unfinished assignments"),
         ("CAREER", str(career_count), "saved opportunities"),
@@ -465,7 +473,7 @@ def render_chat() -> None:
         st.session_state.messages = []
         st.rerun()
     state_col.markdown(
-        "<span class='status-pill'>工具真实执行</span><span class='status-pill'>数据库持久化</span><span class='status-pill'>离线可演示</span>",
+        "<span class='status-pill'>MiniMax 在线</span><span class='status-pill'>工具真实执行</span><span class='status-pill'>数据库持久化</span>",
         unsafe_allow_html=True,
     )
 
@@ -796,8 +804,10 @@ def main() -> None:
         )
         status_cols = st.columns(2)
         status_cols[0].metric("SQLite", "Ready")
-        status_cols[1].metric("模型", "可选" if OPENAI_API_KEY else "离线")
+        status_cols[1].metric("模型", MODEL_STATUS_LABEL)
         st.caption(f"数据库：{DB_PATH.relative_to(Path.cwd())}")
+        st.caption(f"模型：{MODEL_DISPLAY_NAME}")
+        st.caption(f"端点：{OPENAI_BASE_URL}")
         if st.button("初始化示例数据", width="stretch"):
             seed_demo_data(memory)
             st.success("示例数据已写入")

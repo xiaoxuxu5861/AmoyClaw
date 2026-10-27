@@ -23,9 +23,17 @@ MAX_AGENT_STEPS = 8
 if load_dotenv:
     load_dotenv(BASE_DIR / ".env")
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
-OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
-OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+MODEL_PROVIDER = os.getenv("MODEL_PROVIDER", "minimax")
+MINIMAX_API_KEY = os.getenv("MINIMAX_API_KEY", "")
+MINIMAX_BASE_URL = os.getenv("MINIMAX_BASE_URL", "https://api.minimaxi.com/v1")
+MINIMAX_MODEL = os.getenv("MINIMAX_MODEL", "MiniMax-M3")
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", MINIMAX_API_KEY)
+OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL", MINIMAX_BASE_URL)
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", MINIMAX_MODEL)
+
+MODEL_DISPLAY_NAME = os.getenv("MODEL_DISPLAY_NAME", "MiniMax-M3")
+MODEL_STATUS_LABEL = os.getenv("MODEL_STATUS_LABEL", "MiniMax 在线")
 
 
 def ensure_dirs() -> None:

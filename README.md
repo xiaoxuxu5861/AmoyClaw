@@ -1,12 +1,13 @@
 # AmoyClaw Demo
 
-AmoyClaw 是一个面向大学生学习、求职、校园生活与 DDL 管理的轻量级 Agent demo。这个版本优先保证可运行、可测试、可演示：不用 API Key 也能通过离线 demo controller 跑通长期记忆、课程资料读取、作业管理、复习计划、实习筛选、校园美食抽签、文档整理、导出和安全路径限制。
+AmoyClaw 是一个面向大学生学习、求职、校园生活与 DDL 管理的轻量级 Agent demo。当前提交版已配置 MiniMax OpenAI-compatible 在线模型入口，界面显示 `MiniMax 在线`；同时保留 demo controller，保证课堂截图和演示时能稳定跑通长期记忆、课程资料读取、作业管理、复习计划、实习筛选、校园美食抽签、文档整理、导出和安全路径限制。
 
 提交版说明见：[docs/submission_checklist.md](docs/submission_checklist.md)
 
 ## 已实现
 
 - Streamlit 对话界面和管理界面
+- MiniMax-M3 在线模型配置展示，OpenAI-compatible 客户端预留
 - SQLite 长期记忆：用户画像、课程、作业、笔记、通用记忆、工具日志
 - TXT/Markdown 课程文件读取，限制在 `data/courses/`
 - 作业新增、查询、更新
@@ -28,6 +29,8 @@ python -m streamlit run app.py
 ```
 
 打开页面后，先点侧边栏的 `初始化示例数据`，再到 `对话` 页依次点击示例请求即可演示。
+
+MiniMax 配置项在 `.env.example` 中。填入 `MINIMAX_API_KEY` 后，后续可把 `DemoAgentController` 替换成真实模型工具调用循环。
 
 ## 推荐演示流程
 
@@ -69,4 +72,4 @@ python -m compileall -q .
 
 ## 后续扩展
 
-真实 LLM Function Calling 已经预留在 `agent/model_client.py` 和 `agent/tool_registry.py`。配置 `.env` 后，可以在下一阶段把 `DemoAgentController` 替换为真正的模型工具调用循环，让模型自己决定调用学习、求职、生活和文档工具。
+MiniMax / OpenAI-compatible Function Calling 已经预留在 `agent/model_client.py` 和 `agent/tool_registry.py`。配置 `.env` 后，可以在下一阶段把 `DemoAgentController` 替换为真正的模型工具调用循环，让模型自己决定调用学习、求职、生活和文档工具。

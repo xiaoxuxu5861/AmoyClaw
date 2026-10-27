@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from config import OPENAI_API_KEY, OPENAI_BASE_URL, OPENAI_MODEL
+from config import MODEL_DISPLAY_NAME, OPENAI_API_KEY, OPENAI_BASE_URL, OPENAI_MODEL
 
 
 class ModelUnavailableError(RuntimeError):
@@ -24,7 +24,7 @@ class OpenAICompatibleClient:
 
     def chat(self, messages: list[dict[str, Any]], tools: list[dict[str, Any]]) -> Any:
         if not self.api_key:
-            raise ModelUnavailableError("未配置 OPENAI_API_KEY，当前使用离线 demo controller")
+            raise ModelUnavailableError(f"未配置 {MODEL_DISPLAY_NAME} API Key，当前使用 demo controller")
         try:
             from openai import OpenAI
         except ImportError as exc:  # pragma: no cover - optional path

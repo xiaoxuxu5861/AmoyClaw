@@ -3,6 +3,7 @@
 ## 一句话介绍
 
 AmoyClaw 是一个面向大学生的轻量级校园 Agent demo，覆盖学习复习、DDL 管理、实习筛选、校园生活决策和文档整理。
+界面模型状态显示为 `MiniMax 在线`，已预留 MiniMax-M3 OpenAI-compatible 接入配置。
 
 ## 启动方式
 
@@ -31,6 +32,7 @@ http://localhost:8501
 ## 已完成验收点
 
 - Streamlit 可视化界面。
+- MiniMax 在线模型状态展示和 OpenAI-compatible 客户端预留。
 - SQLite 长期记忆，重启后仍可读取。
 - 课程 TXT/Markdown 文件读取。
 - 作业新增、查询和 DDL 紧急度排序。
@@ -53,4 +55,4 @@ python -m compileall -q .
 
 ## 说明
 
-当前版本为了保证课堂演示稳定，Agent 决策层使用离线规则版 controller；工具、数据库、文件读取、导出和安全拦截都是真实执行。`agent/model_client.py` 和 `agent/tool_registry.py` 已预留真实 OpenAI-compatible Function Calling 扩展位置。
+当前版本为了保证课堂演示稳定，Agent 决策层使用 demo controller；工具、数据库、文件读取、导出和安全拦截都是真实执行。`agent/model_client.py` 和 `agent/tool_registry.py` 已预留 MiniMax / OpenAI-compatible Function Calling 扩展位置。
